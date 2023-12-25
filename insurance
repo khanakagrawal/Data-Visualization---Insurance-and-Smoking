@@ -52,14 +52,14 @@ plt.legend()
 plt.show()
         
 # 3d scatter with age, children, charges
-age = data.age
 children = data.children
+bmi = data.bmi
 charges = data.charges
 
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-ax.scatter(children, age, charges, c = '#9fb5fb')
-plt.title("Insurance Charges by Age and Body Mass Index (BMI)")
-ax.set_xlabel("Children")
-ax.set_ylabel("Age")
+ax.scatter(bmi, children, charges, c = '#9fb5fb')
+plt.title("Insurance Charges by Number of Children and Body Mass Index (BMI)")
+ax.set_xlabel("BMI")
+ax.set_ylabel("# of Children")
 ax.set_zlabel("Insurance Charges")
 plt.show()
