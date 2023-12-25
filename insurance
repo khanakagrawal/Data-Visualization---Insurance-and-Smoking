@@ -1,0 +1,60 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('insurance_data.csv')
+
+# pie chart of smokers for age
+smokersByAge = [0, 0, 0, 0, 0]
+for x in range(0, data.shape[0]):
+    if data.iloc[x]['smoker'] == 'yes':  # Compare with integer, not string
+        if data.iloc[x]['age'] >= 60:
+            smokersByAge[4] += 1
+        elif data.iloc[x]['age'] >= 50:
+            smokersByAge[3] += 1
+        elif data.iloc[x]['age'] >= 40:
+            smokersByAge[2] += 1
+        elif data.iloc[x]['age'] >= 30:
+            smokersByAge[1] += 1
+        else:
+            smokersByAge[0] += 1
+
+ageLabels = ["18-29", "30-39", "40-49", "50-59", "60-64"]
+myColors = ['#9fb5fb', '#c994e5', '#b3b5e5', '#af91f0', '#bcbcf4']
+plt.pie(smokersByAge, labels = ageLabels, colors = myColors)
+plt.title("Smokers by Age Groups")
+plt.show()
+
+#line chart with x = age and y = charges and two lines, one for smokers and one for non-smokers
+smokerAge = []
+smokerCharges = []
+nonsmokerAge = []
+nonsmokerCharges = []
+for x in range(0, data.shape[0]):
+    if data.iloc[x]['smoker'] == 'yes': 
+        smokerAge.append(data.iloc[x]['age'])
+        smokerCharges.append(data.iloc[x]['charges'])
+    else :
+        nonsmokerAge.append(data.iloc[x]['age'])
+        nonsmokerCharges.append(data.iloc[x]['charges'])
+
+plt.plot(smokerAge, smokerCharges, c = '#9fb5fb', label = "Smoker")
+plt.plot(nonsmokerAge, nonsmokerCharges, c = '#a4eaba', label = "Non-smoker")
+
+plt.title("Insurance Charges by Age for Smokers vs. Non-smokers")
+plt.xlabel("Age")
+plt.ylabel("Insurance Charges")
+plt.legend()
+plt.show()
+        
+# 3d scatter with age, children, charges
+age = data.age
+children = data.children
+charges = data.charges
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.scatter(children, age, charges, c = '#9fb5fb')
+plt.title("Insurance Charges by Age and Body Mass Index (BMI)")
+ax.set_xlabel("Children")
+ax.set_ylabel("Age")
+ax.set_zlabel("Insurance Charges")
+plt.show()
