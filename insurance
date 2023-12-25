@@ -5,21 +5,24 @@ data = pd.read_csv('insurance_data.csv')
 
 # pie chart of smokers for age
 smokersByAge = [0, 0, 0, 0, 0]
+
+# looping through data to total up number of smokers for each age group
 for x in range(0, data.shape[0]):
-    if data.iloc[x]['smoker'] == 'yes':  # Compare with integer, not string
-        if data.iloc[x]['age'] >= 60:
+    if data.iloc[x]['smoker'] == 'yes':  
+        if data.iloc[x]['age'] >= 57:
             smokersByAge[4] += 1
-        elif data.iloc[x]['age'] >= 50:
+        elif data.iloc[x]['age'] >= 47:
             smokersByAge[3] += 1
-        elif data.iloc[x]['age'] >= 40:
+        elif data.iloc[x]['age'] >= 37:
             smokersByAge[2] += 1
-        elif data.iloc[x]['age'] >= 30:
+        elif data.iloc[x]['age'] >= 27:
             smokersByAge[1] += 1
         else:
             smokersByAge[0] += 1
 
-ageLabels = ["18-29", "30-39", "40-49", "50-59", "60-64"]
+ageLabels = ["18-27", "28-37", "38-47", "48-57", "58-64"]
 myColors = ['#9fb5fb', '#c994e5', '#b3b5e5', '#af91f0', '#bcbcf4']
+
 plt.pie(smokersByAge, labels = ageLabels, colors = myColors)
 plt.title("Smokers by Age Groups")
 plt.show()
@@ -29,6 +32,8 @@ smokerAge = []
 smokerCharges = []
 nonsmokerAge = []
 nonsmokerCharges = []
+
+# looping through data to sort and store data based on smoking habits
 for x in range(0, data.shape[0]):
     if data.iloc[x]['smoker'] == 'yes': 
         smokerAge.append(data.iloc[x]['age'])
